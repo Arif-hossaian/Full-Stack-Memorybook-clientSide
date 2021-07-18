@@ -1,20 +1,28 @@
-import React from "react";
+import { useEffect } from "react";
 import { AppBar, Container, Grow, Grid, Typography } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import {getPosts} from "./Actions/posts"
 import { Form, Posts } from "./components";
 import styles from "./styles/App.module.css";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <Container maxWidth="lg">
       <AppBar className={styles.appBar} position="static" color="inherit">
-        <Typography className={styles.heading} variant="h2" align="center">
+        {/* <Typography className={styles.heading} variant="h2" align="center">
           Memorybook
-        </Typography>
+        </Typography> */}
         <img
           src="https://i.ibb.co/D8ZfSTG/memroy-book.png"
           alt="Memorybook"
           className={styles.memoryBookImage}
-          height="60"
+          height="90"
         />
       </AppBar>
       <Grow in>
