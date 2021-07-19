@@ -31,6 +31,9 @@
   right: 20px;
   color: white;
 }
+.overlay2Button{
+  color: white;
+}
 .grid {
   display: flex;
 }

@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AppBar, Container, Grow, Grid, Typography } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import {getPosts} from "./Actions/posts"
+import { getPosts } from "./Actions/posts";
 import { Form, Posts } from "./components";
 import styles from "./styles/App.module.css";
 
 const App = () => {
+  const [currentId, setCurrentId] = useState(null)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,9 +20,9 @@ const App = () => {
           Memorybook
         </Typography> */}
         <img
-          src="https://i.ibb.co/D8ZfSTG/memroy-book.png"
+          src="https://i.ibb.co/cy24MRf/image.png"
           alt="Memorybook"
-          className={styles.memoryBookImage}
+          
           height="90"
         />
       </AppBar>
@@ -34,10 +35,10 @@ const App = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <Posts />
+              <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>
         </Container>

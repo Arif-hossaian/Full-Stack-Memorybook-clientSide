@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Paper, Typography, TextField, Button } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import {useDispatch} from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles.js";
-import { createPost } from "../../Actions/posts.js";
+import { createPost, updatePost } from "../../Actions/posts.js";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
+  const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -20,13 +23,25 @@ const Form = () => {
   };
   const clear = () => {
     // setCurrentId(0);
-    // setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+    // setPostData({
+    //   creator: "",
+    //   title: "",
+    //   message: "",
+    //   tags: "",
+    //   selectedFile: "",
+    // });
   };
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(createPost(postData))
+    e.preventDefault();
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
   };
-  console.log(postData);
 
   return (
     <Paper className={classes.paper}>
@@ -90,7 +105,13 @@ const Form = () => {
         >
           Submit
         </Button>
-        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={clear}
+          fullWidth
+        >
           Clear
         </Button>
       </form>
