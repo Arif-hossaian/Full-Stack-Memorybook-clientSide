@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { AppBar, Container, Grow, Grid, Typography } from "@material-ui/core";
+import { AppBar, Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getPosts } from "./Actions/posts";
 import { Form, Posts } from "./components";
 import styles from "./styles/App.module.css";
 
 const App = () => {
-  const [currentId, setCurrentId] = useState(null)
+  const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, [currentId, dispatch]);
 
   return (
     <Container maxWidth="lg">
@@ -22,7 +22,6 @@ const App = () => {
         <img
           src="https://i.ibb.co/cy24MRf/image.png"
           alt="Memorybook"
-          
           height="90"
         />
       </AppBar>

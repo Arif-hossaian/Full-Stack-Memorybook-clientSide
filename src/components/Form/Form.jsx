@@ -22,14 +22,14 @@ const Form = ({ currentId, setCurrentId }) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
   const clear = () => {
-    // setCurrentId(0);
-    // setPostData({
-    //   creator: "",
-    //   title: "",
-    //   message: "",
-    //   tags: "",
-    //   selectedFile: "",
-    // });
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
   };
   useEffect(() => {
     if (post) setPostData(post);
@@ -41,6 +41,7 @@ const Form = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(createPost(postData));
     }
+    clear()
   };
 
   return (
@@ -50,7 +51,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? `Editing` : `Creating`} a memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
