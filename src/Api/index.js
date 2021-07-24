@@ -1,7 +1,7 @@
 import Axios from "axios";
 
-// const API_URL = "http://localhost:8000/posts";
-const API_URL = "https://mern-memorybook.herokuapp.com/posts";
+const API_URL = "http://localhost:8000/posts";
+//const API_URL = "https://mern-memorybook.herokuapp.com/posts";
 
 export const fetchPosts = () => Axios.get(API_URL);
 export const createPost = (newPost) => Axios.post(API_URL, newPost);
