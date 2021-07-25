@@ -1,14 +1,37 @@
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import useStyles from "./styles.js";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 const NavBar = () => {
-  const user = null;
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation()
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  // console.log(user);
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    history.push("/");
+    setUser(null);
+  };
+  useEffect(() => {
+    const token = user?.token;
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location, user?.token]);
+
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to="/" className={classes.brandContainer}>
-        <img component={Link} to="/" src="https://i.ibb.co/cy24MRf/image.png" alt="icon" height="50px" width="120px" />
+        <img
+          component={Link}
+          to="/"
+          src="https://i.ibb.co/cy24MRf/image.png"
+          alt="icon"
+          height="50px"
+          width="120px"
+        />
       </Link>
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
@@ -27,6 +50,7 @@ const NavBar = () => {
               variant="contained"
               className={classes.logout}
               color="secondary"
+              onClick={logout}
             >
               Logout
             </Button>
