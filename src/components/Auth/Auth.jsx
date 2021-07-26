@@ -12,11 +12,17 @@ import Icon from "./icon";
 import { useDispatch } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { useHistory } from "react-router-dom";
-import { signin, signup } from "../../Actions/auth.js"
+import { signin, signup } from "../../Actions/auth.js";
 import useStyles from "./styles.js";
 import CustomeInput from "./custom/CustomeInput";
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const classes = useStyles();
@@ -24,19 +30,19 @@ const Auth = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [formData, setFormData] = useState(initialState)
+  const [formData, setFormData] = useState(initialState);
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // console.log(formData);
-    if(isSignUp){
-      dispatch(signup(formData, history))
-    }else{
-      dispatch(signin(formData, history))
+    if (isSignUp) {
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
     }
   };
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const switchMode = () => {
     setIsSignUp(!isSignUp);
@@ -68,6 +74,7 @@ const Auth = () => {
                 <CustomeInput
                   name="firstName"
                   label="First Name"
+                  variant="Standard"
                   handleChange={handleChange}
                   autoFocus
                   half
@@ -75,6 +82,7 @@ const Auth = () => {
                 <CustomeInput
                   name="lastName"
                   label="Last Name"
+                  variant="Standard"
                   handleChange={handleChange}
                   half
                 />
@@ -83,12 +91,14 @@ const Auth = () => {
             <CustomeInput
               name="email"
               label="Email Address"
+              variant="Standard"
               handleChange={handleChange}
               type="email"
             />
             <CustomeInput
               name="password"
               label="Password"
+              variant="Standard"
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
@@ -97,6 +107,7 @@ const Auth = () => {
               <CustomeInput
                 name="confirmPassword"
                 label="Repeat Password"
+                variant="Standard"
                 handleChange={handleChange}
                 type="password"
               />

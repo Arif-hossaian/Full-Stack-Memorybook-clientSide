@@ -6,7 +6,9 @@ const CustomeInput = ({
   name,
   handleChange,
   label,
+  variant,
   half,
+  onKeyPress,
   autoFocus,
   type,
   handleShowPassword,
@@ -15,10 +17,11 @@ const CustomeInput = ({
     <TextField
       name={name}
       onChange={handleChange}
-      variant="outlined"
+      variant={variant}
       required
       fullWidth
       label={label}
+      onKeyPress={onKeyPress}
       autoFocus={autoFocus}
       type={type}
       InputProps={

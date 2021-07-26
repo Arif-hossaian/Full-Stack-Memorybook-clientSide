@@ -2,8 +2,8 @@ import Axios from "axios";
 //const API_URL = "http://localhost:8000/posts";
 //const API_URL = "https://mern-memorybook.herokuapp.com/posts";
 
-//const API = Axios.create({ baseURL: "http://localhost:8000" });
-const API = Axios.create({ baseURL: "https://mern-memorybook.herokuapp.com" });
+const API = Axios.create({ baseURL: "http://localhost:8000" });
+//const API = Axios.create({ baseURL: "https://mern-memorybook.herokuapp.com" });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     req.headers.Authorization = `Bearer ${
