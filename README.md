@@ -1,3 +1,3 @@
 # Full Stack Memorybook Application
 
-### [Live site](https://memroybook.netlify.app/)
+### [Live site](https://my-memorybook.netlify.app/)

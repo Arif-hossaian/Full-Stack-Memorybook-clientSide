@@ -10,7 +10,7 @@ const Posts = ({setCurrentId}) => {
   return (
       !posts.length ? (
         <div>
-          <CircularProgress />
+          Post is loading plz wait...<CircularProgress />
         </div>
       ) : (
         <Grid
