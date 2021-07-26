@@ -1,6 +1,7 @@
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Decode from "jwt-decode";
 import useStyles from "./styles.js";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -8,7 +9,7 @@ const NavBar = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation()
+  const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   // console.log(user);
   const logout = () => {
@@ -18,7 +19,12 @@ const NavBar = () => {
   };
   useEffect(() => {
     const token = user?.token;
+    if (token) {
+      const decodeToken = Decode(token);
+      if (decodeToken.exp * 1000 < new Date().getTime()) logout();
+    }
     setUser(JSON.parse(localStorage.getItem("profile")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, user?.token]);
 
   return (

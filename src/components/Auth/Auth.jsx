@@ -12,8 +12,11 @@ import Icon from "./icon";
 import { useDispatch } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { useHistory } from "react-router-dom";
+import { signin, signup } from "../../Actions/auth.js"
 import useStyles from "./styles.js";
 import CustomeInput from "./custom/CustomeInput";
+
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 const Auth = () => {
   const classes = useStyles();
@@ -21,9 +24,20 @@ const Auth = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState(initialState)
   const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // console.log(formData);
+    if(isSignUp){
+      dispatch(signup(formData, history))
+    }else{
+      dispatch(signin(formData, history))
+    }
+  };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  };
   const switchMode = () => {
     setIsSignUp(!isSignUp);
   };
