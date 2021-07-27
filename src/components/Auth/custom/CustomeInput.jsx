@@ -8,7 +8,7 @@ const CustomeInput = ({
   label,
   variant,
   half,
-  onKeyPress,
+  onKeyDown,
   autoFocus,
   type,
   handleShowPassword,
@@ -21,7 +21,7 @@ const CustomeInput = ({
       required
       fullWidth
       label={label}
-      onKeyPress={onKeyPress}
+      onKeyDown={onKeyDown}
       autoFocus={autoFocus}
       type={type}
       InputProps={

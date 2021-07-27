@@ -4,6 +4,7 @@ import {
   Container,
   Grid,
   Grow,
+  TextField,
   Paper,
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
@@ -14,7 +15,6 @@ import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 import Paginate from "../Pagination/Pagination";
 import useStyles from "./styles.js";
-import CustomeInput from "./../Auth/custom/CustomeInput";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -22,14 +22,14 @@ function useQuery() {
 
 const Layout = () => {
   const classes = useStyles();
-  const [currentId, setCurrentId] = useState(0);
-  const [search, setSearch] = useState("");
-  const [tags, setTags] = useState([]);
-  const dispatch = useDispatch();
-  const history = useHistory();
   const query = useQuery();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
+  const [currentId, setCurrentId] = useState(0);
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getPosts());
@@ -75,18 +75,20 @@ const Layout = () => {
                 position="static"
                 color="inherit"
               >
-                <CustomeInput
-                  name="search"
-                  label="Search memories"
+                <TextField
                   onKeyDown={handleKeyPress}
+                  name="search"
+                  variant="standard"
+                  label="Search Memories"
+                  fullWidth
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 <ChipInput
                   className={classes.chipInputStyle}
                   value={tags}
-                  onAdd={handleAdd}
-                  onDelete={handleDelete}
+                  onAdd={(chip) => handleAdd(chip)}
+                  onDelete={(chip) => handleDelete(chip)}
                   label="Search tags"
                 />
                 <Button
