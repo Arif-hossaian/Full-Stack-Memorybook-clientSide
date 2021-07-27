@@ -74,7 +74,7 @@ const Auth = () => {
                 <CustomeInput
                   name="firstName"
                   label="First Name"
-                  variant="Standard"
+                  variant="standard"
                   handleChange={handleChange}
                   autoFocus
                   half
@@ -82,7 +82,7 @@ const Auth = () => {
                 <CustomeInput
                   name="lastName"
                   label="Last Name"
-                  variant="Standard"
+                  variant="standard"
                   handleChange={handleChange}
                   half
                 />
@@ -91,14 +91,14 @@ const Auth = () => {
             <CustomeInput
               name="email"
               label="Email Address"
-              variant="Standard"
+              variant="standard"
               handleChange={handleChange}
               type="email"
             />
             <CustomeInput
               name="password"
               label="Password"
-              variant="Standard"
+              variant="standard"
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
@@ -107,7 +107,7 @@ const Auth = () => {
               <CustomeInput
                 name="confirmPassword"
                 label="Repeat Password"
-                variant="Standard"
+                variant="standard"
                 handleChange={handleChange}
                 type="password"
               />

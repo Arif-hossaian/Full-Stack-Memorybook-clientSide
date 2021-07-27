@@ -1,8 +1,15 @@
-import { AppBar, Container, Grid, Grow, Paper } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  Container,
+  Grid,
+  Grow,
+  Paper,
+} from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { Form, Posts } from "../../components";
 import { useDispatch } from "react-redux";
-import { getPosts } from "../../Actions/posts.js";
+import { getPosts, getPostBySearch } from "../../Actions/posts.js";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 import Paginate from "../Pagination/Pagination";
@@ -28,13 +35,26 @@ const Layout = () => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
-  const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
-      //search post
+  const searchPost = () => {
+    if (search.trim() || tags) {
+      dispatch(
+        getPostBySearch({
+          search,
+          tags: tags.join(","),
+        })
+      );
+      history.push("/");
     }
   };
-  const handleAdd = () => {};
-  const handleDelete = () => {};
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      searchPost();
+    }
+  };
+  const handleAdd = (tag) => setTags([...tags, tag]);
+  const handleDelete = (tagDelete) =>
+    setTags(tags.filter((tag) => tag !== tagDelete));
+
   return (
     <div>
       <Grow in>
@@ -58,8 +78,7 @@ const Layout = () => {
                 <CustomeInput
                   name="search"
                   label="Search memories"
-                  fullWidth
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -70,6 +89,14 @@ const Layout = () => {
                   onDelete={handleDelete}
                   label="Search tags"
                 />
+                <Button
+                  className={classes.searchButton}
+                  color="primary"
+                  variant="outlined"
+                  onClick={searchPost}
+                >
+                  Search
+                </Button>
               </AppBar>
               <Form currentId={currentId} setCurrentId={setCurrentId} />
               <Paper className={classes.pagination} elevation={6}>
