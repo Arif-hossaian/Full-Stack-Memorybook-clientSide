@@ -43,6 +43,8 @@ const Layout = () => {
           tags: tags.join(","),
         })
       );
+      history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+    }else{
       history.push("/");
     }
   };
